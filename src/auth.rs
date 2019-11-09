@@ -4,7 +4,7 @@
 use crate::util::read_file;
 use chrono::{Duration, Utc};
 
-use jsonwebtoken::{self, Algorithm, Header};
+use jsonwebtoken::{self, Algorithm, Header, Key};
 use serde::de::DeserializeOwned;
 use serde::ser::Serialize;
 
@@ -32,7 +32,7 @@ lazy_static! {
 }
 
 pub fn encode_jwt<T: Serialize>(claims: &T) -> String {
-    match jsonwebtoken::encode(&JWT_HEADER, claims, &PRIVATE_RSA_KEY) {
+    match jsonwebtoken::encode(&JWT_HEADER, claims, Key::Der(&PRIVATE_RSA_KEY)) {
         Ok(token) => token,
         Err(e) => panic!("Error encoding jwt {}", e),
     }
@@ -51,7 +51,7 @@ fn decode_jwt<T: DeserializeOwned>(token: &str, issuer: String) -> Result<T, Err
 
     let token = token.replace(char::is_whitespace, "");
 
-    jsonwebtoken::decode(&token, &PUBLIC_RSA_KEY, &validation)
+    jsonwebtoken::decode(&token, Key::Der(&PUBLIC_RSA_KEY), &validation)
         .map(|d| d.claims)
         .map_res("Error decoding JWT")
 }

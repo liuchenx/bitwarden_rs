@@ -25,6 +25,9 @@ syslog = "4.0.1"
 rocket = { version = "0.5.0-dev", features = ["tls"], default-features = false }
 rocket_contrib = "0.5.0-dev"
 
+# Async futures
+futures = "0.3.1"
+
 # HTTP client
 reqwest = "0.9.22"
 
@@ -57,7 +60,7 @@ diesel_migrations = "1.4.0"
 libsqlite3-sys = { version = "0.16.0", features = ["bundled"], optional = true }
 
 # Crypto library
-ring = "0.14.6"
+ring = "0.16.9"
 
 # UUID generation
 uuid = { version = "0.8.1", features = ["v4"] }
@@ -72,10 +75,10 @@ oath = "0.10.2"
 data-encoding = "2.1.2"
 
 # JWT library
-jsonwebtoken = "6.0.1"
+jsonwebtoken = "7.0.0"
 
 # U2F library
-u2f = "0.1.6"
+u2f = "0.2.0"
 
 # Yubico Library
 yubico = { version = "0.7.1", features = ["online-tokio"], default-features = false }
@@ -118,8 +121,8 @@ percent-encoding = "2.1.0"
 rmp = { git = 'https://github.com/3Hren/msgpack-rust', rev = 'd6c6c672e470341207ed9feb69b56322b5597a11' }
 
 # Use newest ring
-rocket = { git = 'https://github.com/SergioBenitez/Rocket', rev = 'b95b6765e1cc8be7c1e7eaef8a9d9ad940b0ac13' }
-rocket_contrib = { git = 'https://github.com/SergioBenitez/Rocket', rev = 'b95b6765e1cc8be7c1e7eaef8a9d9ad940b0ac13' }
+rocket = { git = 'https://github.com/SergioBenitez/Rocket', rev = 'baef291481eb4d1d6d71bbc9f39e7b487df59983' }
+rocket_contrib = { git = 'https://github.com/SergioBenitez/Rocket', rev = 'baef291481eb4d1d6d71bbc9f39e7b487df59983' }
 
 # Use git version for timeout fix #706
 lettre = { git = 'https://github.com/lettre/lettre', rev = '24d694db3be017d82b1cdc8bf9da601420b31bb0' }
@@ -127,3 +130,7 @@ lettre_email = { git = 'https://github.com/lettre/lettre', rev = '24d694db3be017
 
 # For favicon extraction from main website
 data-url = { git = 'https://github.com/servo/rust-url', package="data-url", rev = '7f1bd6ce1c2fde599a757302a843a60e714c5f72' }
+
+# Ring 0.16
+jsonwebtoken = { git = 'https://github.com/Keats/jsonwebtoken', rev = '639915f25b4b0457106f2a8a04249ab2758900c6' }
+u2f = { git = 'https://github.com/dani-garcia/u2f-rs', rev = '8efe11d67666eb727f960733c909923c88e62c2e' }

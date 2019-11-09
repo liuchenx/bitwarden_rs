@@ -180,19 +180,21 @@ use rocket::request::Request;
 use rocket::response::{self, Responder, Response};
 
 impl<'r> Responder<'r> for Error {
-    fn respond_to(self, _: &Request) -> response::Result<'r> {
-        match self.error {
-            ErrorKind::EmptyError(_) => {} // Don't print the error in this situation
-            _ => error!(target: "error", "{:#?}", self),
-        };
+    fn respond_to(self, _: &'r Request<'_>) -> response::ResultFuture<'r> {
+        Box::pin(async move {
+            match self.error {
+                ErrorKind::EmptyError(_) => {} // Don't print the error in this situation
+                _ => error!(target: "error", "{:#?}", self),
+            };
 
-        let code = Status::from_code(self.error_code).unwrap_or(Status::BadRequest);
+            let code = Status::from_code(self.error_code).unwrap_or(Status::BadRequest);
 
-        Response::build()
-            .status(code)
-            .header(ContentType::JSON)
-            .sized_body(Cursor::new(format!("{}", self)))
-            .ok()
+            Response::build()
+                .status(code)
+                .header(ContentType::JSON)
+                .sized_body(Cursor::new(format!("{}", self)))
+                .ok()
+        })
     }
 }
 
